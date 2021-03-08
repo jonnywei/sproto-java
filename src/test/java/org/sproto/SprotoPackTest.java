@@ -9,7 +9,6 @@ public class SprotoPackTest {
     @Test
     public  void testPack(){
         String s = " 08 00 00 00 03 00 02 00   19 00 00 00 aa 01 00 00";
-        s = s.replaceAll("\\s","");
         byte[] unpacked = hexStringToByteArray(s);
         byte[] packed =SprotoPack.pack(unpacked);
         HexByteUtil.printHex(packed);
@@ -21,7 +20,6 @@ public class SprotoPackTest {
     public  void testPackFF(){
         String s = " 08 8a  8a  8a  8a  8a  8a  8a    19 00 00 00 aa 01 00 00  08 8a  8a  8a  8a  8a  8a  8a   8a 8a  8a  8a  8a  8a  8a  8a "
                 + " 8a 8a  8a  8a  8a  8a  8a  8a   8a 8a  8a  8a  8a  8a  8a  8a   8a 8a  8a  8a  8a  8a  8a  8a ";
-        s = s.replaceAll("\\s","");
         byte[] unpacked = hexStringToByteArray(s);
         byte[] packed =SprotoPack.pack(unpacked);
         HexByteUtil.printHex(packed);
@@ -31,7 +29,6 @@ public class SprotoPackTest {
     public  void testPackFFAddZero(){
         String s = " 08 8a  8a  8a  8a  8a  8a  8a    19 00 00 00 aa 01 00 00  08 8a  8a  8a  8a  8a  8a  8a   8a 8a  8a  8a  8a  8a  8a  8a "
                 + " 8a 8a  8a  8a  8a  8a  8a  8a   8a 8a  8a  8a  8a  8a  8a  8a   8a 8a  8a  8a  8a  8a  8a   ";
-        s = s.replaceAll("\\s","");
         byte[] unpacked = hexStringToByteArray(s);
         byte[] packed =SprotoPack.pack(unpacked);
         HexByteUtil.printHex(packed);
@@ -40,7 +37,6 @@ public class SprotoPackTest {
     @Test
     public  void testPackNotAlign(){
         String s = " 08 00 00 00 03 00 02 00   19 00 00 00 aa 01 00 00 22";
-        s = s.replaceAll("\\s","");
         byte[] unpacked = hexStringToByteArray(s);
         byte[] packed =SprotoPack.pack(unpacked);
         HexByteUtil.printHex(packed);
@@ -50,7 +46,6 @@ public class SprotoPackTest {
     @Test
     public  void testUnPackNotAlign(){
         String s = " 08 00 00 00 03 00 02 00   19 00 00 00 aa 01 00 00 22";
-        s = s.replaceAll("\\s","");
         byte[] unpacked = hexStringToByteArray(s);
         byte[] packed =SprotoPack.pack(unpacked);
         unpacked = SprotoPack.unpack(packed);
@@ -64,7 +59,6 @@ public class SprotoPackTest {
     public  void testUnPackFF(){
         String s = " 08 8a  8a  8a  8a  8a  8a  8a    19 00 00 00 aa 01 00 00  08 8a  8a  8a  8a  8a  8a  8a   8a 8a  8a  8a  8a  8a  8a  8a "
                 + " 8a 8a  8a  8a  8a  8a  8a  8a   8a 8a  8a  8a  8a  8a  8a  8a   8a 8a  8a  8a  8a  8a  8a  8a ";
-        s = s.replaceAll("\\s","");
         byte[] unpacked = hexStringToByteArray(s);
         byte[] packed =SprotoPack.pack(unpacked);
         HexByteUtil.printHex(packed);
