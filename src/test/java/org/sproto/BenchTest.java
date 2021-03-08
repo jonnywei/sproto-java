@@ -99,7 +99,7 @@ public class BenchTest {
 
 
     @Test
-    public   void testAddressBook() {
+    public   void testEncodeAddressBook() {
 
         SprotoStruct personSchema = buildAddressBookSchema();
 
@@ -117,6 +117,27 @@ public class BenchTest {
     }
 
 
+
+    @Test
+    public   void testEncodeAddressBookPacked() {
+
+        SprotoStruct personSchema = buildAddressBookSchema();
+
+        Map<String,Object> person = buildAddressBook();
+
+        long start = System.currentTimeMillis();
+        for(int i = 0; i < 100_0000; i++){
+
+            byte[] result =  SprotoEncoder.encodeStruct(personSchema, person);
+            result = SprotoPack.pack(result);
+        }
+        System.out.println(System.currentTimeMillis() - start);
+        //        PrintUtil.print(result);
+        //
+        //        System.out.println(result.length);
+    }
+
+
     @Test
     public   void testDecodeAddressBook() {
 
@@ -129,6 +150,27 @@ public class BenchTest {
 
         for(int i = 0; i < 100_0000; i++){
             Object v  =  SprotoDecoder.decodeStruct(personSchema, result);
+
+        }
+        System.out.println(System.currentTimeMillis() - start);
+        //        PrintUtil.print(result);
+        //
+        //        System.out.println(result.length);
+    }
+
+    @Test
+    public   void testDecodeAddressBookUnpacked() {
+
+        SprotoStruct personSchema = buildAddressBookSchema();
+
+        Map<String,Object> person = buildAddressBook();
+
+        long start = System.currentTimeMillis();
+        byte[] result =  SprotoEncoder.encodeStruct(personSchema, person);
+        result = SprotoPack.pack(result);
+        for(int i = 0; i < 100_0000; i++){
+
+            Object v  =  SprotoDecoder.decodeStruct(personSchema, SprotoPack.unpack(result));
 
         }
         System.out.println(System.currentTimeMillis() - start);

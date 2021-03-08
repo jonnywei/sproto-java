@@ -4,6 +4,7 @@ public class HexByteUtil {
 
     public static void printHex(byte[] bytes){
         int n =1;
+        System.out.println("-----------");
         for(byte b: bytes){
             if  (0<= b && b <=16){
                 System.out.printf("0");
@@ -14,7 +15,8 @@ public class HexByteUtil {
             }
             n++;
         }
-        System.out.println();
+        System.out.println("-----------");
+        System.out.println("");
     }
 
 

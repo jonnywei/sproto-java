@@ -32,8 +32,7 @@ public class SprotoPack {
         while(i < length){
             int headerIndex = packIndex++;
             byte header = 0;
-            int t =0;
-            for( ;t < 8 && i < length; t++){
+            for( int t =0; t < 8 && i < length; t++){
                 byte v = origin[i++];
                 if( v != 0){
                   header = (byte) (header |  ((1 << t) & 0XFF));
@@ -64,10 +63,6 @@ public class SprotoPack {
                 ffCount++;
             }else {
                 packed[headerIndex] = header;
-                while (t < 8){ //补零
-                    packed[packIndex++] = 0;
-                    t++;
-                }
 
                 firstFFHeaderIndex = -1;
                 ffCount  = 0;
@@ -77,13 +72,44 @@ public class SprotoPack {
         for(int idx =0; idx < packIndex; idx ++){
              result[idx] = packed[idx];
         }
-//        (packed,0,packIndex, result,0,packIndex);
         return result;
     }
 
-
-    public static byte[] unpack(byte[] origin){
-
-        return null;
+    /**
+     * unpacked
+     * @param packed
+     * @return
+     */
+    public static byte[] unpack(byte[] packed){
+        int length = packed.length;
+        if(length <= 0){
+            return new byte[0];
+        }
+        SprotoByteBuffer unpack = SprotoByteBuffer.allocate(length*2);
+        int i = 0;
+        while(i < length){
+            byte header = packed[i++];
+            if((header & 0XFF) == 0XFF){
+                int ffLen = packed[i++];
+                int m = 0;
+                while(m++ < (ffLen+1)*8){
+                    unpack.putByte(packed[i++]) ;
+                }
+                continue;
+            }
+            int t =0;
+            for( ; t < 8 && i < length; t++){
+                byte  v = (byte)((1 << t) & header);
+                if( v != 0){
+                    unpack.putByte(packed[i++]) ;
+                }else {
+                    unpack.putByte((byte) 0) ;
+                }
+            }
+            while (t++ < 8){
+                unpack.putByte((byte) 0);
+            }
+        }
+        return unpack.get();
     }
 }
