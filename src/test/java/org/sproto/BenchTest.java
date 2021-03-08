@@ -115,4 +115,25 @@ public class BenchTest {
 //
 //        System.out.println(result.length);
     }
+
+
+    @Test
+    public   void testDecodeAddressBook() {
+
+        SprotoStruct personSchema = buildAddressBookSchema();
+
+        Map<String,Object> person = buildAddressBook();
+
+        long start = System.currentTimeMillis();
+        byte[] result =  SprotoEncoder.encodeStruct(personSchema, person);
+
+        for(int i = 0; i < 100_0000; i++){
+            Object v  =  SprotoDecoder.decodeStruct(personSchema, result);
+
+        }
+        System.out.println(System.currentTimeMillis() - start);
+        //        PrintUtil.print(result);
+        //
+        //        System.out.println(result.length);
+    }
 }

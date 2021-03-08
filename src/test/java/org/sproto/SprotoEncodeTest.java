@@ -66,7 +66,7 @@ public class SprotoEncodeTest {
 
         byte[] result =  SprotoEncoder.encodeStruct(personSchema, person);
 
-        PrintUtil.print(result);
+        HexByteUtil.printHex(result);
 
     }
 
@@ -79,7 +79,7 @@ public class SprotoEncodeTest {
 
         byte[] result =  SprotoEncoder.encodeStruct(personSchema, person);
 
-        PrintUtil.print(result);
+        HexByteUtil.printHex(result);
 
 
 
@@ -125,7 +125,7 @@ public class SprotoEncodeTest {
 
         byte[] result =  SprotoEncoder.encodeStruct(personSchema, person);
 
-        PrintUtil.print(result);
+        HexByteUtil.printHex(result);
 
     }
 
@@ -153,7 +153,7 @@ public class SprotoEncodeTest {
 
         byte[] result =  SprotoEncoder.encodeStruct(personSchema, person);
 
-        PrintUtil.print(result);
+        HexByteUtil.printHex(result);
 
     }
 
@@ -184,7 +184,7 @@ public class SprotoEncodeTest {
 
         byte[] result =  SprotoEncoder.encodeStruct(personSchema, person);
 
-        PrintUtil.print(result);
+        HexByteUtil.printHex(result);
 
     }
 
@@ -199,7 +199,7 @@ public class SprotoEncodeTest {
 
         byte[] result =  SprotoEncoder.encodeStruct(personSchema, person);
 
-        PrintUtil.print(result);
+        HexByteUtil.printHex(result);
 
     }
 

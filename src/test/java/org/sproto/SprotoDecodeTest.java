@@ -66,7 +66,7 @@ public class SprotoDecodeTest {
 
         byte[] result =  SprotoEncoder.encodeStruct(personSchema, person);
 
-        PrintUtil.print(result);
+        HexByteUtil.printHex(result);
 
         Object  a = SprotoDecoder.decodeStruct(personSchema,result);
 
@@ -83,7 +83,7 @@ public class SprotoDecodeTest {
 
         byte[] result =  SprotoEncoder.encodeStruct(personSchema, person);
 
-        PrintUtil.print(result);
+        HexByteUtil.printHex(result);
 
         Object  a = SprotoDecoder.decodeStruct(personSchema,result);
 
@@ -129,7 +129,7 @@ public class SprotoDecodeTest {
 
         byte[] result =  SprotoEncoder.encodeStruct(personSchema, person);
 
-        PrintUtil.print(result);
+        HexByteUtil.printHex(result);
 
 
         Object  a = SprotoDecoder.decodeStruct(personSchema,result);
@@ -160,7 +160,7 @@ public class SprotoDecodeTest {
 
         byte[] result =  SprotoEncoder.encodeStruct(personSchema, person);
 
-        PrintUtil.print(result);
+        HexByteUtil.printHex(result);
         Object  a = SprotoDecoder.decodeStruct(personSchema,result);
 
     }
@@ -192,7 +192,7 @@ public class SprotoDecodeTest {
 
         byte[] result =  SprotoEncoder.encodeStruct(personSchema, person);
 
-        PrintUtil.print(result);
+        HexByteUtil.printHex(result);
 
 
         Object  a = SprotoDecoder.decodeStruct(personSchema,result);
@@ -211,7 +211,7 @@ public class SprotoDecodeTest {
 
         byte[] result =  SprotoEncoder.encodeStruct(personSchema, person);
 
-        PrintUtil.print(result);
+        HexByteUtil.printHex(result);
         Object  a = SprotoDecoder.decodeStruct(personSchema,result);
 
     }
