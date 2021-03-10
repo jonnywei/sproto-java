@@ -7,8 +7,7 @@ public enum SprotoType {
     BINARY,
     DOUBLE,
     BOOLEAN,
-    STRUCT,
-    LIST;
+    STRUCT;
 
     public static SprotoType typeOf(String str){
         if(str.equals("string")){
