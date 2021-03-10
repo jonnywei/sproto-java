@@ -15,8 +15,9 @@ public class HexByteUtil {
             }
             n++;
         }
+        System.out.println();
         System.out.println("-----------");
-        System.out.println("");
+        System.out.println();
     }
 
 

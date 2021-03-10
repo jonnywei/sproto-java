@@ -55,6 +55,11 @@ public class SprotoDecoder {
             }
             Object v = null;
             //value in dataBuffer
+            if(field.isArray()) {
+                v =  decodeList(field, dataBuffer );
+                structObj.put(fieldName,v );
+                continue;
+            }
             if((field.getType() == SprotoType.INTEGER )){
                 int length = dataBuffer.getInt();
                 if(length == 4){
@@ -78,10 +83,7 @@ public class SprotoDecoder {
                 SprotoStruct sprotoStruct = field.getSprotoStruct();
                 v = decodeStruct(sprotoStruct,dataBuffer);
             }
-            if(field.getType() == SprotoType.LIST) {
-                SprotoList sprotoList = field.getList();
-                v =  decodeList(sprotoList, dataBuffer );
-            }
+
             structObj.put(fieldName,v );
 
         }
@@ -89,10 +91,10 @@ public class SprotoDecoder {
         return structObj;
     }
 
-    public static Object decodeList(SprotoList listSchema, SprotoByteBuffer  byteBuffer){
+    public static Object decodeList(SprotoField field, SprotoByteBuffer  byteBuffer){
 
         List<Object> list = new ArrayList<>();
-        SprotoType elemType = listSchema.getElemType();
+        SprotoType elemType = field.getType();
 
         int totalLen = byteBuffer.getInt();  // total   length
 
@@ -141,19 +143,19 @@ public class SprotoDecoder {
             do {
                 int structLength = byteBuffer.getInt();
                 restLength = restLength - structLength -4;
-                SprotoStruct elemStructSchema = listSchema.getSprotoStruct();
+                SprotoStruct elemStructSchema = field.getSprotoStruct();
                 Object struct =  decodeStruct(elemStructSchema,byteBuffer);
                 list.add(struct);
             }while (restLength > 0);
         }
 
-        if (elemType == SprotoType.LIST){
-            for(Object listObject : list){
-                SprotoList elemListSchema = listSchema.getListElemSchema();
-                decodeList(elemListSchema,byteBuffer);
-//                byteBuffer.putSprotoByteBuffer();
-            }
-        }
+//        if (elemType == SprotoType.LIST){
+//            for(Object listObject : list){
+//                SprotoList elemListSchema = listSchema.getListElemSchema();
+//                decodeList(elemListSchema,byteBuffer);
+////                byteBuffer.putSprotoByteBuffer();
+//            }
+//        }
 //        int size = byteBuffer.position();
 //        byteBuffer.putInt(0, size-4);
         return list;

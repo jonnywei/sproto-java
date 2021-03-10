@@ -8,12 +8,17 @@ public class SprotoField {
 
     private SprotoType type;
 
-    private SprotoList list;
+    private boolean array;
+
+    private boolean map;
+
+    private String mapKey;
+
+    private Integer mapKeyIndex;
 
     private SprotoStruct sprotoStruct;
 
-
-    private Object defaultValue;
+    private String structName;
 
     public String getName() {
 
@@ -45,26 +50,6 @@ public class SprotoField {
         this.type = type;
     }
 
-    public Object getDefaultValue() {
-
-        return defaultValue;
-    }
-
-    public void setDefaultValue(Object defaultValue) {
-
-        this.defaultValue = defaultValue;
-    }
-
-    public SprotoList getList() {
-
-        return list;
-    }
-
-    public void setList(SprotoList list) {
-
-        this.list = list;
-    }
-
     public SprotoField(String name, int number, SprotoType type) {
 
         this.name = name;
@@ -72,12 +57,21 @@ public class SprotoField {
         this.type = type;
     }
 
-    public SprotoField(String name, int number, SprotoList list) {
+    public SprotoField(String name, int number, SprotoType type, boolean array) {
 
         this.name = name;
         this.number = number;
-        this.type = SprotoType.LIST;
-        this.list = list;
+        this.type = type;
+        this.array = array;
+    }
+
+    public SprotoField(String name, int number, SprotoStruct sprotoStruct, boolean array) {
+
+        this.name = name;
+        this.number = number;
+        this.type = SprotoType.STRUCT;
+        this.sprotoStruct = sprotoStruct;
+        this.array = array;
     }
 
     public SprotoStruct getSprotoStruct() {
@@ -85,5 +79,58 @@ public class SprotoField {
         return sprotoStruct;
     }
 
+    public void setSprotoStruct(SprotoStruct sprotoStruct) {
 
+        this.sprotoStruct = sprotoStruct;
+    }
+
+    public String getStructName() {
+
+        return structName;
+    }
+
+    public void setStructName(String structName) {
+
+        this.structName = structName;
+    }
+
+    public boolean isArray() {
+
+        return array;
+    }
+
+    public void setArray(boolean array) {
+
+        this.array = array;
+    }
+
+    public boolean isMap() {
+
+        return map;
+    }
+
+    public void setMap(boolean map) {
+
+        this.map = map;
+    }
+
+    public String getMapKey() {
+
+        return mapKey;
+    }
+
+    public void setMapKey(String mapKey) {
+
+        this.mapKey = mapKey;
+    }
+
+    public Integer getMapKeyIndex() {
+
+        return mapKeyIndex;
+    }
+
+    public void setMapKeyIndex(Integer mapKeyIndex) {
+
+        this.mapKeyIndex = mapKeyIndex;
+    }
 }

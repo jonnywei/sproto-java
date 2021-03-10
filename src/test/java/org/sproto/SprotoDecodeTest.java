@@ -17,7 +17,7 @@ public class SprotoDecodeTest {
         person.addField(new SprotoField("name",0, SprotoType.STRING));
         person.addField( new SprotoField("age",1, SprotoType.INTEGER));
         person.addField(new SprotoField("marital",2, SprotoType.BOOLEAN));
-        person.addField(new SprotoField("children",3,new SprotoList(person)));
+        person.addField(new SprotoField("children",3,person,true));
         return person;
 
     }
@@ -96,8 +96,8 @@ public class SprotoDecodeTest {
     public static SprotoStruct buildDataSchema() {
 
         SprotoStruct person = new SprotoStruct("Data");
-        person.addField(new SprotoField("numbers",0, new SprotoList(SprotoType.INTEGER)));
-        person.addField( new SprotoField("bools",1, new SprotoList(SprotoType.BOOLEAN)));
+        person.addField(new SprotoField("numbers",0,SprotoType.INTEGER,true));
+        person.addField( new SprotoField("bools",1,SprotoType.BOOLEAN,true));
         person.addField(new SprotoField("number",2, SprotoType.INTEGER));
         person.addField(new SprotoField("bignumber",3, SprotoType.INTEGER));
         return person;

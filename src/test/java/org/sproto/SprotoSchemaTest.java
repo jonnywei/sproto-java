@@ -20,11 +20,7 @@ public class SprotoSchemaTest {
         person.addField(id);
         person.addField(email);
 
-        SprotoField phone = new SprotoField("phone",3, SprotoType.LIST);
-
-        SprotoList phoneList = new SprotoList(phoneNumber);
-        phone.setList(phoneList);
-
+        SprotoField phone = new SprotoField("phone",3,phoneNumber ,true);
         person.addField(phone);
 
         person.addField(new SprotoField("height",4,SprotoType.INTEGER));
@@ -34,7 +30,7 @@ public class SprotoSchemaTest {
 
 
         SprotoStruct addressBook  = new SprotoStruct("AddressBook");
-        addressBook.addField(new SprotoField("person",0,new SprotoList(person)));
+        addressBook.addField(new SprotoField("person",0,person,true));
 
 
     }

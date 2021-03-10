@@ -15,6 +15,11 @@ public class SprotoStruct {
 
     }
 
+    public String getName() {
+
+        return name;
+    }
+
     public void addField(SprotoField field) {
         this.fields.add(field);
     }

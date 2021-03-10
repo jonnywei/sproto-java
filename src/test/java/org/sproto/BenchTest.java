@@ -27,11 +27,7 @@ public class BenchTest {
         person.addField(id);
         person.addField(email);
 
-        SprotoField phone = new SprotoField("phone",3, SprotoType.LIST);
-
-        SprotoList phoneList = new SprotoList(phoneNumber);
-        phone.setList(phoneList);
-
+        SprotoField phone = new SprotoField("phone",3, phoneNumber,true);
         person.addField(phone);
 //
 //        person.addField(new SprotoField("height",4,SprotoType.INTEGER));
@@ -40,7 +36,7 @@ public class BenchTest {
 
 
         SprotoStruct addressBook  = new SprotoStruct("AddressBook");
-        addressBook.addField(new SprotoField("person",0,new SprotoList(person)));
+        addressBook.addField(new SprotoField("person",0,person,true));
 
         return addressBook;
     }
@@ -104,11 +100,16 @@ public class BenchTest {
         SprotoStruct personSchema = buildAddressBookSchema();
 
         Map<String,Object> person = buildAddressBook();
+        byte[] result =  SprotoEncoder.encodeStruct(personSchema, person);
+        HexByteUtil.printHex(result);
+
+        HexByteUtil.printHex( SprotoPack.pack(result));
+        HexByteUtil.printHex(SprotoPack.unpack( SprotoPack.pack(result)));
 
         long start = System.currentTimeMillis();
         for(int i = 0; i < 100_0000; i++){
 
-            byte[] result =  SprotoEncoder.encodeStruct(personSchema, person);
+            result =  SprotoEncoder.encodeStruct(personSchema, person);
         }
         System.out.println(System.currentTimeMillis() - start);
 //        PrintUtil.print(result);
