@@ -20,6 +20,20 @@ public class SprotoSchema {
         this.types.add(type);
     }
 
+
+
+
+    public SprotoStruct getType(String typeName) {
+
+        for(SprotoStruct type : this.types){
+            if(type.getName().equals(typeName)){
+                return type;
+            }
+        }
+        return null;
+    }
+
+
     public List<SprotoProtocol> getProtocols() {
 
         return protocols;
@@ -31,4 +45,26 @@ public class SprotoSchema {
     }
 
 
+
+    public SprotoProtocol getProtocol(String protocolName) {
+
+        for(SprotoProtocol protocol : this.protocols){
+            if(protocol.getName().equals(protocolName)){
+                return protocol;
+            }
+        }
+        return null;
+    }
+
+
+
+    public SprotoProtocol getProtocol(Integer tag) {
+
+        for(SprotoProtocol protocol : this.protocols){
+            if(protocol.getTag().equals(tag)){
+                return protocol;
+            }
+        }
+        return null;
+    }
 }

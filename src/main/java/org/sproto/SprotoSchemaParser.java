@@ -1,9 +1,6 @@
 package org.sproto;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * parse schema file
@@ -199,7 +196,7 @@ public class SprotoSchemaParser {
     }
 
     private static void fillStructInfo(SprotoStruct struct , Map<String, SprotoStruct> structMap){
-        struct.getFields().sort((o1, o2) -> o1.getNumber() - o2.getNumber());
+        struct.getFields().sort(Comparator.comparingInt(SprotoField::getNumber));
         for(SprotoField field : struct.getFields()){
             if (field.getType() == SprotoType.STRUCT ){
                 if (field.getSprotoStruct() == null ){

@@ -50,26 +50,22 @@ public class SprotoEncoder {
             }
 
             if((field.getType() == SprotoType.INTEGER )){
-                long iv = 0;
                 if (v instanceof Long){
-                      iv = (Long) v;
-                }else {
-                     iv = (Integer) v;
-                }
-                if(iv >= 0 && iv  <= 32767){
-                    int ev = ((Integer) v +1) *2;
-                    fieldBuffer.putShort(ev);
-                }else if ( iv > Integer.MIN_VALUE && iv < Integer.MAX_VALUE){
-                    fieldBuffer.putShort(0);
-                    dataBuffer.putInt(4); // size of number
-                    dataBuffer.putBytes(encodeIntegerData((int)iv));
-                } else {
+                    long iv = (Long) v;
                     fieldBuffer.putShort(0);
                     dataBuffer.putInt(8); // size of number
                     dataBuffer.putBytes(encodeLongData(iv));
+                }else {
+                    int iv = (Integer) v;
+                    if(iv >= 0 && iv  <= 32767){
+                        int ev = (iv  +1) *2;
+                        fieldBuffer.putShort(ev);
+                    }else {
+                        fieldBuffer.putShort(0);
+                        dataBuffer.putInt(4); // size of number
+                        dataBuffer.putBytes(encodeIntegerData((int)iv));
+                    }
                 }
-
-
             }
             if(field.getType() == SprotoType.STRING) {
                 fieldBuffer.putShort( 0);
