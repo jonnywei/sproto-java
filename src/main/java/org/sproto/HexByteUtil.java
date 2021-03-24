@@ -6,7 +6,7 @@ public class HexByteUtil {
         int n =1;
         System.out.println("-----------");
         for(byte b: bytes){
-            if  (0<= b && b <=16){
+            if  (0<= b && b <16){
                 System.out.printf("0");
             }
             System.out.printf("%X ",b);
@@ -23,6 +23,7 @@ public class HexByteUtil {
 
     public static byte[] hexStringToByteArray(String s) {
         s = s.replaceAll("\\s","");
+        s = s.replaceAll("\\(.*?\\)","");
         int len = s.length();
         byte[] data = new byte[len / 2];
         for (int i = 0; i < len; i += 2) {
@@ -31,4 +32,20 @@ public class HexByteUtil {
         }
         return data;
     }
+
+
+    private boolean equal(byte[] a, byte[] b){
+        int lena = a.length;
+        int lenb = b.length;
+        if (lena != lenb){
+            return false;
+        }
+        for(int i =0; i < lena; i++){
+            if (a[i] != b[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

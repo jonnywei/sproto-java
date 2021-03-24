@@ -1,5 +1,10 @@
 package org.sproto;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class SprotoField {
 
     private String name;
@@ -132,5 +137,33 @@ public class SprotoField {
     public void setMapKeyIndex(Integer mapKeyIndex) {
 
         this.mapKeyIndex = mapKeyIndex;
+    }
+
+    @Override public String toString() {
+
+        return "SprotoField{" + "name='" + name + '\'' + ", number=" + number + ", type=" + type + ", array=" + array
+                + ", map=" + map + ", mapKey='" + mapKey + '\'' + ", mapKeyIndex=" + mapKeyIndex + ", sprotoStruct="
+                + sprotoStruct + ", structName='" + structName + '\'' + '}';
+    }
+
+
+    public Map<String,Object> toMap( Map<String, Integer> typePositionMap){
+        Map<String,Object> map = new HashMap<>();
+        map.put("name",this.name);
+        map.put("tag",this.number);
+        if(this.isArray()){
+            map.put("array",true);
+        }
+        if(this.isArray()){
+            if(this.mapKeyIndex != null){
+                map.put("key", this.mapKeyIndex);
+            }
+        }
+        if(this.type != SprotoType.STRUCT){
+            map.put("buildin",SprotoType.buildin(this.type));
+        }else{
+            map.put("type",typePositionMap.get(this.sprotoStruct.getName()));
+        }
+        return map;
     }
 }

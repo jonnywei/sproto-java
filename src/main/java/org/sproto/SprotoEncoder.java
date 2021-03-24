@@ -42,9 +42,9 @@ public class SprotoEncoder {
                 continue;
             }
             if(field.getType() == SprotoType.BOOLEAN){
-                int ev = (0 +1) *2;
+                int ev =  (0+1) *2;
                 if (Boolean.TRUE.equals(v )){
-                    ev  = (1+2) *2;
+                    ev  = (1+1) *2;
                 }
                 fieldBuffer.putShort(ev);
             }
@@ -63,7 +63,7 @@ public class SprotoEncoder {
                     }else {
                         fieldBuffer.putShort(0);
                         dataBuffer.putInt(4); // size of number
-                        dataBuffer.putBytes(encodeIntegerData((int)iv));
+                        dataBuffer.putBytes(encodeIntegerData(iv));
                     }
                 }
             }

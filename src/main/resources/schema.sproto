@@ -1,0 +1,25 @@
+.type {
+    .field {
+        name 0 : string
+        buildin	1 : integer
+        type 2 : integer	# type is fixed-point number precision when buildin is SPROTO_TINTEGER; When buildin is SPROTO_TSTRING, it means binary string when type is 1.
+        tag 3 : integer
+        array 4	: boolean
+        key 5 : integer # If key exists, array must be true, and it's a map.
+    }
+    name 0 : string
+    fields 1 : *field
+}
+
+.protocol {
+    name 0 : string
+    tag 1 : integer
+    request 2 : integer # index
+    response 3 : integer # index
+    confirm 4 : boolean # response nil where confirm == true
+}
+
+.group {
+    type 0 : *type
+    protocol 1 : *protocol
+}

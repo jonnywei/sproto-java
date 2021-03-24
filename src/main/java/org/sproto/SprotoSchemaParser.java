@@ -222,24 +222,30 @@ public class SprotoSchemaParser {
         }
         return false;
     }
-
-
-
     public static   void parseStruct(TokenSequence tokenSequence,  SprotoSchema sprotoSchema){
+        parseStruct(null,tokenSequence,sprotoSchema);
+    }
+
+
+    public static   void parseStruct(String parentStructName, TokenSequence tokenSequence,  SprotoSchema sprotoSchema){
         String token = tokenSequence.peekNextToken();
         if(!match(".", token)){
             return;
         }
         token = tokenSequence.getNextToken();
         String structName = tokenSequence.getNextToken();
-        SprotoStruct sprotoStruct = new SprotoStruct(structName);
+        String dotName = structName;
+        if(parentStructName != null){
+            dotName = parentStructName +"."+ dotName;
+        }
+        SprotoStruct sprotoStruct = new SprotoStruct(structName,dotName);
         match("{",tokenSequence.getNextToken());
         token = tokenSequence.getNextToken();
         while (!match("}",token)){
             String filedName = token;
             if(match(".",filedName)){
                 tokenSequence.back();
-                parseStruct(tokenSequence, sprotoSchema);
+                parseStruct(structName,tokenSequence, sprotoSchema);
                 token = tokenSequence.getNextToken();
                 continue;
             }
@@ -253,20 +259,14 @@ public class SprotoSchemaParser {
             }
             String type = array;
             SprotoType sprotoType = SprotoType.typeOf(type);
+            SprotoField sprotoField = new SprotoField(filedName,number,sprotoType);
             if(isArray){
-                SprotoField sprotoField = new SprotoField(filedName,number,sprotoType,true);
-
-                if(sprotoType == SprotoType.STRUCT){
-                    sprotoField.setStructName(type);
-                }
-                sprotoStruct.addField(sprotoField);
-            }else {
-                SprotoField sprotoField = new SprotoField(filedName,number,sprotoType);
-                if(sprotoType == SprotoType.STRUCT){
-                    sprotoField.setStructName(type);
-                }
-                sprotoStruct.addField(sprotoField);
+                 sprotoField.setArray(true);
             }
+            if(sprotoType == SprotoType.STRUCT){
+                sprotoField.setStructName(type);
+            }
+            sprotoStruct.addField(sprotoField);
             token = tokenSequence.getNextToken();
             if(match("(",token)){
                 token = tokenSequence.getNextToken();
