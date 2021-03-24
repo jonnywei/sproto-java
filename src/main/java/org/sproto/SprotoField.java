@@ -153,8 +153,6 @@ public class SprotoField {
         map.put("tag",this.number);
         if(this.isArray()){
             map.put("array",true);
-        }
-        if(this.isArray()){
             if(this.mapKeyIndex != null){
                 map.put("key", this.mapKeyIndex);
             }
